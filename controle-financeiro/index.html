@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle Financeiro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>Controle Financeiro</h1>
+      <p class="subtitle">Organize suas finanças de forma simples</p>
+      <nav class="nav-abas" aria-label="Navegação principal">
+        <button type="button" class="nav-aba ativo" data-aba="transacoes">Transações</button>
+        <button type="button" class="nav-aba" data-aba="grafico">Gráfico</button>
+      </nav>
+    </header>
+
+    <main class="main">
+      <div class="aba-conteudo ativo" id="aba-transacoes">
+      <section class="resumo">
+        <div class="card card-saldo">
+          <span class="card-label">Saldo atual</span>
+          <span class="card-valor" id="saldo-total">R$ 0,00</span>
+        </div>
+        <div class="card card-receita">
+          <span class="card-label">Receitas</span>
+          <span class="card-valor positivo" id="total-receitas">R$ 0,00</span>
+        </div>
+        <div class="card card-despesa">
+          <span class="card-label">Despesas</span>
+          <span class="card-valor negativo" id="total-despesas">R$ 0,00</span>
+        </div>
+      </section>
+
+      <section class="formulario-section">
+        <h2 id="form-titulo">Nova transação</h2>
+        <form class="formulario" id="form-transacao">
+          <div class="form-row">
+            <label for="descricao">Descrição</label>
+            <input type="text" id="descricao" placeholder="Ex: Aluguel, Salário..." required>
+          </div>
+          <div class="form-row">
+            <label for="valor">Valor (R$)</label>
+            <input type="number" id="valor" step="0.01" min="0" placeholder="0,00" required>
+          </div>
+          <div class="form-row form-row-tipo">
+            <label>Tipo</label>
+            <div class="tipo-opcoes">
+              <label class="radio-option">
+                <input type="radio" name="tipo" value="receita" checked>
+                <span class="radio-custom receita">Receita</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="tipo" value="despesa">
+                <span class="radio-custom despesa">Despesa</span>
+              </label>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="data">Data</label>
+            <input type="date" id="data" required>
+          </div>
+          <div class="form-row form-row-comprovante">
+            <label for="comprovante">Comprovante (opcional)</label>
+            <p class="comprovante-dica">PNG, JPEG ou PDF. Máximo 2 MB.</p>
+            <input type="file" id="comprovante" accept=".png,.jpg,.jpeg,.pdf,image/png,image/jpeg,image/jpg,application/pdf" class="input-file">
+            <div class="comprovante-preview oculto" id="comprovante-preview">
+              <!-- preview ou arquivo atual -->
+            </div>
+            <button type="button" class="btn btn-remover-comprovante oculto" id="btn-remover-comprovante">Remover comprovante</button>
+          </div>
+          <div class="form-botoes">
+            <button type="submit" class="btn btn-primary" id="btn-submit">Adicionar</button>
+            <button type="button" class="btn btn-cancelar oculto" id="btn-cancelar">Cancelar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="transacoes-section">
+        <h2>Histórico de transações</h2>
+        <div class="filtros">
+          <button type="button" class="btn-filtro ativo" data-filtro="todos">Todos</button>
+          <button type="button" class="btn-filtro" data-filtro="receita">Receitas</button>
+          <button type="button" class="btn-filtro" data-filtro="despesa">Despesas</button>
+        </div>
+        <ul class="lista-transacoes" id="lista-transacoes">
+          <!-- Transações inseridas via JS -->
+        </ul>
+        <p class="lista-vazia" id="lista-vazia">Nenhuma transação cadastrada.</p>
+      </section>
+      </div>
+
+      <div class="aba-conteudo" id="aba-grafico">
+        <section class="grafico-section">
+          <h2>Receitas x Despesas por mês</h2>
+          <p class="grafico-descricao">Últimos 12 meses</p>
+          <div class="grafico-container">
+            <canvas id="chart-receita-despesa" aria-label="Gráfico de receitas e despesas por mês"></canvas>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>Controle Financeiro &copy; 2025</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
